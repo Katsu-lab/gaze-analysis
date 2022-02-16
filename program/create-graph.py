@@ -1,32 +1,34 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
 import matplotlib.animation as animation
 
-data = pd.read_csv('../data/gaze.csv').values.tolist()
-
-def displayCoordinateGraph(x,y):
-    fig = plt.figure()
-    ax = fig.add_subplot()
-    fig.patch.set_facecolor('#FFF')
-    ax.patch.set_facecolor('#00FF00')
-    scat = ax.scatter(x,y,c='red',marker='.')
-    plt.title('Gaze of a PC screen(From Bereaved family)')
+def createScatterDiagram(x,y):
+    figure = plt.figure()
+    axes = figure.add_subplot()
+    axes.patch.set_facecolor('#00FF00')
+    axes.set_title('Gaze of a PC screen(From Bereaved family)')
+    scat = axes.scatter(x,y,c='red',marker='.')
     plt.xlim([0,3840])
     plt.ylim([0,2160])
     plt.show()
-    # plt.colorbar()
 
-def implementAnimation(x,y,scat):
-    def update(i):
-        scat.set_data(x[:i], y[:i])
+def setCsvData():
+    data = pd.read_csv('../data/gaze.csv').values.tolist()
 
-def createScatterDiagram():
-    x = []
-    y = []
-    for coord in data:
-        x.append(coord[0])
-        y.append(coord[1])
-    displayCoordinateGraph(x,y)
+    xCoordinateOnScreen = 0
+    yCoordinateOnScreen = 1
+    milliSecTimeInSystem = 2
+    startTimeInConversation = 3
 
-createScatterDiagram()
+    x = [ coord[xCoordinateOnScreen] for coord in data ]
+    y = [ coord[yCoordinateOnScreen] for coord in data ]
+
+    return x,y
+
+def displayScatterDiagram():
+    gaze = setCsvData()
+    xCoordinate = 0
+    yCoordinate = 1
+    createScatterDiagram(gaze[xCoordinate],gaze[yCoordinate])
+
+displayScatterDiagram()
