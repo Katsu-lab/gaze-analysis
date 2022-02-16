@@ -8,6 +8,7 @@ config = configparser.ConfigParser()
 config.read('config.ini', encoding='utf-8')
 
 def createScatterDiagram(x, y, t, user):
+    figure = plt.figure()
     axes = figure.add_subplot(config.getint(user, 'PlotNumber'))
     axes.patch.set_facecolor('#00FF00')
     plt.xlim([0, config.getint('PC', 'WidthDpi')])
@@ -47,5 +48,10 @@ def displayScatterDiagram(user):
     elapsedTime = 2
     createScatterDiagram(gaze[xCoordinate], gaze[yCoordinate], gaze[elapsedTime], user)
 
-figure = plt.figure()
-displayScatterDiagram('BEREAVED FAMILY')
+def displayScatterDiagrams(user1,user2):
+    displayScatterDiagram(user1)
+    displayScatterDiagram(user2)
+
+
+# displayScatterDiagram('BEREAVED FAMILY')
+displayScatterDiagram('NURSE')
