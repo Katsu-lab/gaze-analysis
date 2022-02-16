@@ -7,9 +7,14 @@ def createScatterDiagram(x,y):
     axes = figure.add_subplot()
     axes.patch.set_facecolor('#00FF00')
     axes.set_title('Gaze of a PC screen(From Bereaved family)')
-    scat = axes.scatter(x,y,c='red',marker='.')
+    line, = plt.plot(x[0], y[0], c='red', marker='.')
     plt.xlim([0,3840])
     plt.ylim([0,2160])
+
+    def update(i):
+        line.set_data(x[:i], y[:i])
+
+    ani = animation.FuncAnimation(figure, update)
     plt.show()
 
 def setCsvData():
@@ -17,11 +22,12 @@ def setCsvData():
 
     xCoordinateOnScreen = 0
     yCoordinateOnScreen = 1
-    milliSecTimeInSystem = 2
-    startTimeInConversation = 3
+    milliSecTimeInEyetracker = 2
+    milliSecTimeInSystem = 3
+    startTimeInConversation = 4
 
-    x = [ coord[xCoordinateOnScreen] for coord in data ]
-    y = [ coord[yCoordinateOnScreen] for coord in data ]
+    x = [ column[xCoordinateOnScreen] for column in data ]
+    y = [ column[yCoordinateOnScreen] for column in data ]
 
     return x,y
 
