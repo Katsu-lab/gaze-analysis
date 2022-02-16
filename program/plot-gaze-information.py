@@ -18,12 +18,13 @@ def createScatterDiagram(x, y, t, user):
         if i != 0:
             plt.plot(linewidth=None)
 
-        line, = plt.plot(x[0], y[0], c='red', marker='o')
+        line, = plt.plot(x[0], y[0], c='red', marker='.')
         line.set_data(x[:i], y[:i])
         time = str(t[:i])
         axes.set_title('Gaze on PC screen(From ' + config.get(user, 'Username') + ')')
 
     ani = animation.FuncAnimation(figure, update, interval = 30)
+    # ani.save('../../plot.gif', writer='ffmpeg', dpi=300)
     plt.show()
 
 def setCsvData(fileName):
