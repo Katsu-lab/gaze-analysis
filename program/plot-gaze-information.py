@@ -38,7 +38,7 @@ def setCsvData(fileName):
 
     x = [ column[xCoordinateOnScreen] for column in data ]
     y = [ column[yCoordinateOnScreen] for column in data ]
-    t = [ column[yCoordinateOnScreen] for column in data ]
+    t = [ column[elapsedTimeSinceBeginingOfConversation] for column in data ]
 
     return x, y, t
 
@@ -54,5 +54,5 @@ def displayScatterDiagrams(user1,user2):
     displayScatterDiagram(user2)
 
 
-# displayScatterDiagram('BEREAVED FAMILY')
-displayScatterDiagram('NURSE')
+displayScatterDiagram('BEREAVED FAMILY')
+# displayScatterDiagram('NURSE')
