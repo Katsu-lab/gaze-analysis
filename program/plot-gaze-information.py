@@ -53,6 +53,6 @@ def displayScatterDiagrams(user1,user2):
     displayScatterDiagram(user1)
     displayScatterDiagram(user2)
 
-
-displayScatterDiagram('BEREAVED FAMILY')
-# displayScatterDiagram('NURSE')
+print("Whose gaze information do you want to see ?")
+user = input("Enter 'BEREAVED FAMILY' or 'NURSE': ")
+displayScatterDiagram(user)
