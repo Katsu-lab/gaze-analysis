@@ -11,8 +11,8 @@ def createScatterDiagram(x, y, t, user):
     figure = plt.figure()
     axes = figure.add_subplot(config.getint(user, 'PlotNumber'))
     axes.patch.set_facecolor('#00FF00')
-    plt.xlim([0, config.getint('PC', 'WidthDpi')])
-    plt.ylim([0, config.getint('PC', 'HeightDpi')])
+    plt.xlim([0, config.getint('PC', 'Width')])
+    plt.ylim([0, config.getint('PC', 'Height')])
 
     def update(i):
         if i != 0:
@@ -43,6 +43,13 @@ def setCsvData(fileName):
     return x, y, t
 
 def displayScatterDiagram(user):
+    if user == 'b':
+        user = 'BEREAVED FAMILY'
+    elif user == 'n':
+        user = 'NURSE'
+    elif user == 'a':
+        user = 'ALL'
+
     gaze = setCsvData(config.get(user, 'Gaze'))
     xCoordinate = 0
     yCoordinate = 1
@@ -53,6 +60,8 @@ def displayScatterDiagrams(user1,user2):
     displayScatterDiagram(user1)
     displayScatterDiagram(user2)
 
-print("Whose gaze information do you want to see ?")
-user = input("Enter 'BEREAVED FAMILY' or 'NURSE': ")
-displayScatterDiagram(user)
+print("Whose gaze information do you want 'BEREAVED FAMILY' or 'NURSE' or ALL ?")
+user = input("Please enter b/n/a : ")
+print("Which gaze plot mode do you want 'SINGLE' or 'MULTIPLE' ?")
+mode = input("Please enter s/m : ")
+displayScatterDiagram('BEREAVED FAMILY')
