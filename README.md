@@ -1,7 +1,7 @@
 # 視線情報可視化システム
 
 Bereavement Care実施時の視線情報を可視化するシステム<br>
-視線情報の獲得にはアイトラッカを使用した
+視線情報の獲得にはアイトラッカを使用
 
 # DEMO
 
@@ -9,7 +9,7 @@ Bereavement Care実施時の視線情報を可視化するシステム<br>
 
 # Features
 
-動画ファイル上にフィルターとして重ねることで，オンラインでのケア実施時のPC画面上における視線を知ることができる
+動画ファイル上にフィルターとして重ねることで，オンラインでのケア実施時のPC画面上における視線を知ることが可能
 
 # Requirement
 
@@ -33,6 +33,13 @@ python plot_gaze_information.py
 ```
 
 CLIで表示された質問に答えることで視線情報をプロット
+
+データの処理の流れ
+1. plot_gaze_information.py
+2. arrange_csv.py
+3. display_diagram.py
+4. create_diagram.py
+5. design_axes.py
 
 # Note
 

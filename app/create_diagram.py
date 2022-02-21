@@ -7,7 +7,7 @@ config.read('config.ini', encoding='utf-8')
 
 def scatter_diagram(x, y, t, user):
     figure = plt.figure()
-    axes = figure.add_subplot(config.getint(user, 'PlotNumber'))
+    axes = figure.add_subplot(111)
     axes.patch.set_facecolor('#00FF00')
     plt.xlim([0, config.getint('PC', 'Width')])
     plt.ylim([0, config.getint('PC', 'Height')])

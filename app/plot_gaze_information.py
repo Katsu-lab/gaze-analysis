@@ -8,5 +8,10 @@ config.read('config.ini', encoding='utf-8')
 # user = input("Please enter b/n/a : ")
 # print("Which gaze plot mode do you want 'SHORT' or 'LONG' ?")
 # mode = input("Please enter s/l : ")
-# display.scatter_diagram('BEREAVED FAMILY')
-display.scatter_diagrams()
+
+# if user == 'a':
+#     display.scatter_diagrams()
+# else :
+#     display.scatter_diagram(user)
+
+display.scatter_diagram('BEREAVED FAMILY')

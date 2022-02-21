@@ -11,19 +11,18 @@ def scatter_diagram(user):
         user = 'BEREAVED FAMILY'
     elif user == 'n':
         user = 'NURSE'
-    elif user == 'a':
-        user = 'ALL'
 
     gaze = csv.set_data(config.get(user, 'Gaze'))
-    xCoordinate = 0
-    yCoordinate = 1
-    elapsedTime = 2
-    create.scatter_diagram(gaze[xCoordinate], gaze[yCoordinate], gaze[elapsedTime], user)
+    X_COORDINATE_COLUMN = 0
+    Y_COORDINATE_COLUMN = 1
+    ELAPSED_TIME_COLUMN = 2
+    create.scatter_diagram(gaze[X_COORDINATE_COLUMN], gaze[Y_COORDINATE_COLUMN], gaze[ELAPSED_TIME_COLUMN], user)
     # plt.show()
 
 def scatter_diagrams():
     gaze1 = csv.set_data(config.get('BEREAVED FAMILY', 'Gaze'))
     gaze2 = csv.set_data(config.get('NURSE', 'Gaze'))
-    xCoordinate = 0
-    yCoordinate = 1
-    create.scatter_diagrams(gaze1[xCoordinate], gaze1[yCoordinate], gaze2[xCoordinate], gaze2[yCoordinate])
+    X_COORDINATE_COLUMN = 0
+    Y_COORDINATE_COLUMN = 1
+    ELAPSED_TIME_COLUMN = 2
+    create.scatter_diagrams(gaze1[X_COORDINATE_COLUMN], gaze1[Y_COORDINATE_COLUMN], gaze2[X_COORDINATE_COLUMN], gaze2[Y_COORDINATE_COLUMN])
