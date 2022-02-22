@@ -18,8 +18,8 @@ def scatter_diagram(x, y, t, user):
 
         line, = plt.plot(x[0], y[0], c='red', marker='.')
         line.set_data(x[:i], y[:i])
-        time = str(t[:i])
-        axes.set_title('Gaze on PC screen(From ' + config.get(user, 'Username') + ')')
+        time = str(round(t[i]))
+        axes.set_title('Gaze on PC screen(From ' + config.get(user, 'Username') + ')\nTime = ' + time + 'msec')
 
     ani = animation.FuncAnimation(figure, update, interval = 30)
     # ani.save('../../plot.gif', writer='ffmpeg', dpi=300)
