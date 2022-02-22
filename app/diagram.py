@@ -11,9 +11,13 @@ csv = gaze.CsvSetting()
 
 class Diagram():
 
-    X_COORDINATE = 0
-    Y_COORDINATE = 1
-    ELAPSED_TIME = 2
+    def __init__(self, user, span, mode):
+        self.user = user
+        self.span = span
+        self.mode = mode
+        self.X_COORDINATE = 0
+        self.Y_COORDINATE = 1
+        self.ELAPSED_TIME = 2
 
     def display_scatter_diagram(self, user):
         if user == 'b':
