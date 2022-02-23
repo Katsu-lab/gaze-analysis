@@ -43,14 +43,18 @@ class Diagram():
         axes.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
         axes.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
         axes.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
-        line, = axes.plot(x[0], y[0], c='red', marker='.')
+        if self.span == 'SHORT':
+            line1, = axes.plot(x[0], y[0], c='red', marker='.')
 
         def update(list_index):
-            # line, = axes.plot(x[0], y[0], c='red', marker='.')
+            if self.span == 'LONG':
+                line2, = axes.plot(x[0], y[0], c='red', marker='.')
             if self.mode == 'LINE':
-                line.set_data(x[:list_index], y[:list_index])
-            elif self.mode == 'POINT':
-                line.set_data(x[list_index], y[list_index])
+                line2.set_data(x[:list_index], y[:list_index])
+            if self.span == 'SHORT' and self.mode == 'POINT':
+                line1.set_data(x[list_index], y[list_index])
+            elif self.span == 'LONG' and self.mode == 'POINT':
+                line2.set_data(x[list_index], y[list_index])
 
             time = str(round(t[list_index]))
             axes.set_title(config.get(self.user, 'Username') + config.get('FIGURE', 'Title') + '\nTime = ' + time + 'msec')
