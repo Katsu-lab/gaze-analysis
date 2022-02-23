@@ -9,7 +9,8 @@ Bereavement Care実施時の視線情報を可視化するシステム<br>
 
 # Features
 
-動画ファイル上にフィルターとして重ねることで，オンラインでのケア実施時のPC画面上における視線を知ることが可能
+* 動画ファイル上にフィルターとして重ねることで，オンラインでのケア実施時のPC画面上における視線を知ることが可能
+* 各視線情報の類似度・同期性を表出化する
 
 # Requirement
 
@@ -21,7 +22,7 @@ Bereavement Care実施時の視線情報を可視化するシステム<br>
 
 # Installation
 
-各自で調べてください<br>
+各webサイト参照<br>
 基本的にはpipを使用してインストールすればOK
 
 # Usage
@@ -35,11 +36,9 @@ python plot_gaze_information.py
 CLIで表示された質問に答えることで視線情報をプロット
 
 データの処理の流れ
-1. plot_gaze_information.py
-2. arrange_csv.py
-3. display_diagram.py
-4. create_diagram.py
-5. design_axes.py
+1. visualization.py
+2. diagram.py
+3. gaze.py
 
 # Note
 

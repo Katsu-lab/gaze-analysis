@@ -1,5 +1,7 @@
 {
     "cSpell.words": [
+        "matplotlib",
+        "numpy",
         "pyplot",
         "tolist",
         "xlim",
