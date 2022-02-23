@@ -7,6 +7,12 @@ config.read('config.ini', encoding='utf-8')
 
 class CsvSetting():
 
+    def __init__(self):
+        self.file_path = config.get('CSV', 'Path')
+        self.x_coodinate = config.getint('CSV', 'X_coodinate_on_screen_column')
+        self.y_coodinate = config.getint('CSV', 'Y_coodinate_on_screen_column')
+        self.time_coodinate = config.getint('CSV', 'Elapsed_time_since_begining_of_conversation_column')
+
     def make_elapsed_time_since_last(self, elapsed_time_list):
         new_elapsed_time_list = [0]
         difference = np.diff(elapsed_time_list)
@@ -15,11 +21,11 @@ class CsvSetting():
         return new_elapsed_time_list
 
     def set_data(self, fileName):
-        data = pd.read_csv(config.get('CSV', 'Path') + fileName).values.tolist()
+        data = pd.read_csv(self.file_path + fileName).values.tolist()
 
-        x = [ column[config.getint('CSV', 'X_COORDINATE_ON_SCREEN_COLUMN')] for column in data ]
-        y = [ column[config.getint('CSV', 'Y_COORDINATE_ON_SCREEN_COLUMN')] for column in data ]
-        t = [ column[config.getint('CSV', 'ELAPSED_TIME_SINCE_BEGINING_OF_CONVERSATION_COLUMN')] for column in data ]
+        x = [ column[self.x_coodinate] for column in data ]
+        y = [ column[self.y_coodinate] for column in data ]
+        t = [ column[self.time_coodinate] for column in data ]
 
         n_t = self.make_elapsed_time_since_last(t)
 

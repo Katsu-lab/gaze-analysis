@@ -9,8 +9,8 @@ def plot(figure, user, x, y):
     axes = figure.add_subplot(config.getint(user, 'PlotNumber'))
     axes.patch.set_facecolor('#00FF00')
     axes.set_title('Gaze on PC screen(' + config.get(user, 'Username') + ')')
-    plt.xlim([0, config.getint('PC', 'Width')])
-    plt.ylim([0, config.getint('PC', 'Height')])
+    plt.xlim([0, config.getint('FIGURE', 'Pc_width')])
+    plt.ylim([0, config.getint('FIGURE', 'Pc_Height')])
 
     def plot_update(i):
         line, = axes.plot(x[0], y[0], c='red', marker='.')
