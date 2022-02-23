@@ -16,8 +16,14 @@ class Diagram():
             self.user = 'BEREAVED FAMILY'
         elif user == 'n':
             self.user = 'NURSE'
-        self.span = span
-        self.mode = mode
+        if span == 's':
+            self.span = 'SHORT'
+        elif span == 'l':
+            self.span = 'LONG'
+        if mode == 'l':
+            self.mode = 'LINE'
+        elif mode == 'p':
+            self.mode = 'POINT'
         self.X_COORDINATE = 0
         self.Y_COORDINATE = 1
         self.ELAPSED_TIME = 2
@@ -37,15 +43,13 @@ class Diagram():
         axes.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
         axes.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
         axes.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
+        line, = axes.plot(x[0], y[0], c='red', marker='.')
 
         def update(list_index):
-            if list_index != 0:
-                pass
-
-            line, = axes.plot(x[0], y[0], c='red', marker='.')
-            if self.mode == 'l':
+            # line, = axes.plot(x[0], y[0], c='red', marker='.')
+            if self.mode == 'LINE':
                 line.set_data(x[:list_index], y[:list_index])
-            elif self.mode == 'p':
+            elif self.mode == 'POINT':
                 line.set_data(x[list_index], y[list_index])
 
             time = str(round(t[list_index]))
@@ -64,11 +68,12 @@ class Diagram():
         axes1.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
         axes1.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
         axes1.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
+        line1, = axes1.plot(x1[0], y1[0], c='red', marker='.')
+
         def update1(i):
-            line1, = axes1.plot(x1[0], y1[0], c='red', marker='.')
             line1.set_data(x1[:i], y1[:i])
             time1 = str(round(t1[i]))
-            axes1.set_title('Gaze on PC screen(' + config.get('BEREAVED FAMILY', 'Username') + ')\nTime = ' + time1 + 'msec')
+            axes1.set_title(config.get('BEREAVED FAMILY', 'Username') + config.get('FIGURE', 'Title') + '\nTime = ' + time1 + 'msec')
 
         ani1 = animation.FuncAnimation(figure, update1, interval = 30)
 
@@ -76,11 +81,12 @@ class Diagram():
         axes2.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
         axes2.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
         axes2.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
+        line2, = axes2.plot(x2[0], y2[0], c='blue', marker='.')
+
         def update2(i):
-            line2, = axes2.plot(x2[0], y2[0], c='blue', marker='.')
             line2.set_data(x2[:i], y2[:i])
             time2 = str(round(t2[i]) - 858)
-            axes2.set_title('Gaze on PC screen(' + config.get('NURSE', 'Username') + ')\nTime = ' + time2 + 'msec')
+            axes2.set_title(config.get('NURSE', 'Username') + config.get('FIGURE', 'Title') + '\nTime = ' + time2 + 'msec')
         ani2 = animation.FuncAnimation(figure, update2, interval = 30)
 
         plt.show()

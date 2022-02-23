@@ -15,6 +15,9 @@ import diagram
 #     mode = 'p'
 
 # diagram = diagram.Diagram(user, span, mode)
+# print('User: ' + diagram.user)
+# print('Span: ' + diagram.span)
+# print('Mode: ' + diagram.mode)
 
 # if user == 'a':
 #     diagram.display_scatter_diagrams()
@@ -22,7 +25,14 @@ import diagram
 #     diagram.display_scatter_diagram()
 
 
+
 ####### FOR TEST #######
-diagram = diagram.Diagram('b', 's', 'l')
+
+diagram = diagram.Diagram('b', 's', 'p')
+
+print('User: ' + diagram.user)
+print('Span: ' + diagram.span)
+print('Mode: ' + diagram.mode)
+
 diagram.display_scatter_diagram()
 # diagram.display_scatter_diagrams()
