@@ -46,11 +46,11 @@ class Diagram():
         axes.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
         axes.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
         if self.span == 'SHORT':
-            line1, = axes.plot(x[0], y[0], c='red', marker='.')
+            line1, = axes.plot(x[0], y[0], c=config.get(self.user, 'Plot_color'), marker='.')
 
         def update(list_index):
             if self.span == 'LONG':
-                line2, = axes.plot(x[0], y[0], c='red', marker='.')
+                line2, = axes.plot(x[0], y[0], c=config.get(self.user, 'Plot_color'), marker='.')
             if self.mode == 'LINE':
                 line2.set_data(x[:list_index], y[:list_index])
             if self.span == 'SHORT' and self.mode == 'POINT':
@@ -68,13 +68,13 @@ class Diagram():
 
     def create_scatter_diagrams(self, x1, y1, t1, x2, y2, t2):
         figure = plt.figure()
-        figure.subplots_adjust(hspace=0.5)
+        figure.subplots_adjust(hspace=0.7)
 
-        axes1 = figure.add_subplot(config.getint('BEREAVED FAMILY', 'PlotNumber'))
+        axes1 = figure.add_subplot(config.getint('BEREAVED FAMILY', 'Plot_number'))
         axes1.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
         axes1.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
         axes1.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
-        line1, = axes1.plot(x1[0], y1[0], c='red', marker='.')
+        line1, = axes1.plot(x1[0], y1[0], c=config.get('BEREAVED FAMILY', 'Plot_color'), marker='.')
 
         def update1(i):
             # line1, = axes1.plot(x1[0], y1[0], c='red', marker='.')
@@ -84,11 +84,11 @@ class Diagram():
 
         ani1 = animation.FuncAnimation(figure, update1, interval = 30)
 
-        axes2 = figure.add_subplot(config.getint('NURSE', 'PlotNumber'))
+        axes2 = figure.add_subplot(config.getint('NURSE', 'Plot_number'))
         axes2.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
         axes2.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
         axes2.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
-        line2, = axes2.plot(x2[0], y2[0], c='blue', marker='.')
+        line2, = axes2.plot(x2[0], y2[0], c=config.get('NURSE', 'Plot_color'), marker='.')
 
         def update2(i):
             # line2, = axes2.plot(x2[0], y2[0], c='blue', marker='.')

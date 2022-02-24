@@ -6,7 +6,7 @@ config = configparser.ConfigParser()
 config.read('config.ini', encoding='utf-8')
 
 def plot(figure, user, x, y):
-    axes = figure.add_subplot(config.getint(user, 'PlotNumber'))
+    axes = figure.add_subplot(config.getint(user, 'Plot_number'))
     axes.patch.set_facecolor('#00FF00')
     axes.set_title('Gaze on PC screen(' + config.get(user, 'Username') + ')')
     plt.xlim([0, config.getint('FIGURE', 'Pc_width')])
