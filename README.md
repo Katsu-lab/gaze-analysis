@@ -5,7 +5,7 @@ Bereavement Care実施時の視線情報を可視化するシステム<br>
 
 # DEMO
 
-分散図の写真
+<img width="80%" alt="gaze scatter diagrams" src="assets/img/example2.png">
 
 # Features
 
@@ -27,18 +27,28 @@ Bereavement Care実施時の視線情報を可視化するシステム<br>
 
 # Usage
 
-appフォルダにて以下を実行
+appフォルダにて以下のコマンドを実行
 
 ```bash
-python plot_gaze_information.py
+python visualization.py
 ```
 
 CLIで表示された質問に答えることで視線情報をプロット
 
 データの処理の流れ
-1. visualization.py
-2. diagram.py
-3. gaze.py
+1. visualization
+2. diagram
+3. gaze
+
+**各ファイルの内容**
+- app
+    - visualization:
+    - diagram:
+    - gaze:
+    - config:
+- data
+    - gaze_b:
+    - gaze_n:
 
 # Note
 

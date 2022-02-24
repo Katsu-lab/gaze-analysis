@@ -16,6 +16,8 @@ class Diagram():
             self.user = 'BEREAVED FAMILY'
         elif user == 'n':
             self.user = 'NURSE'
+        elif user == 'a':
+            self.user = 'ALL'
         if span == 's':
             self.span = 'SHORT'
         elif span == 'l':
@@ -60,13 +62,13 @@ class Diagram():
             axes.set_title(config.get(self.user, 'Username') + config.get('FIGURE', 'Title') + '\nTime = ' + time + 'msec')
 
         ani = animation.FuncAnimation(figure, update, interval = 30)
-        # ani.save('../../plot.gif', writer='ffmpeg', dpi=300)
+        # ani.save('../assets/gif/plot.gif', writer='imagemagick', dpi=300)
 
         plt.show()
 
     def create_scatter_diagrams(self, x1, y1, t1, x2, y2, t2):
         figure = plt.figure()
-        figure.subplots_adjust(hspace=0.7)
+        figure.subplots_adjust(hspace=0.5)
 
         axes1 = figure.add_subplot(config.getint('BEREAVED FAMILY', 'PlotNumber'))
         axes1.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
@@ -75,7 +77,8 @@ class Diagram():
         line1, = axes1.plot(x1[0], y1[0], c='red', marker='.')
 
         def update1(i):
-            line1.set_data(x1[:i], y1[:i])
+            # line1, = axes1.plot(x1[0], y1[0], c='red', marker='.')
+            line1.set_data(x1[i], y1[i])
             time1 = str(round(t1[i]))
             axes1.set_title(config.get('BEREAVED FAMILY', 'Username') + config.get('FIGURE', 'Title') + '\nTime = ' + time1 + 'msec')
 
@@ -88,7 +91,8 @@ class Diagram():
         line2, = axes2.plot(x2[0], y2[0], c='blue', marker='.')
 
         def update2(i):
-            line2.set_data(x2[:i], y2[:i])
+            # line2, = axes2.plot(x2[0], y2[0], c='blue', marker='.')
+            line2.set_data(x2[i], y2[i])
             time2 = str(round(t2[i]) - 858)
             axes2.set_title(config.get('NURSE', 'Username') + config.get('FIGURE', 'Title') + '\nTime = ' + time2 + 'msec')
         ani2 = animation.FuncAnimation(figure, update2, interval = 30)
