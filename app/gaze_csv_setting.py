@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 config = configparser.ConfigParser()
-config.read('config.ini', encoding='utf-8')
+config.read('../config.ini', encoding='utf-8')
 
 class CsvSetting():
 

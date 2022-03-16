@@ -1,12 +1,14 @@
 import configparser
+from venv import create
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
-import gaze
+import gaze_csv_setting
+import add_movie_meaning
 
 config = configparser.ConfigParser()
-config.read('config.ini', encoding='utf-8')
-csv = gaze.CsvSetting()
+config.read('../config.ini', encoding='utf-8')
+csv = gaze_csv_setting.CsvSetting()
 
 class Diagram():
 
@@ -46,14 +48,18 @@ class Diagram():
         if self.graph == 'SEPARATE':
             self.create_scatter_diagrams(gaze1[self.X_COORDINATE], gaze1[self.Y_COORDINATE], gaze1[self.ELAPSED_TIME], gaze2[self.X_COORDINATE], gaze2[self.Y_COORDINATE], gaze2[self.ELAPSED_TIME])
         elif self.graph == 'OVERLAP':
-            self.create_scatter_diagrams_together(gaze1[self.X_COORDINATE], gaze1[self.Y_COORDINATE], gaze2[self.X_COORDINATE], gaze2[self.Y_COORDINATE])
+            self.create_scatter_diagrams_together(gaze1[self.X_COORDINATE], gaze1[self.Y_COORDINATE], gaze1[self.ELAPSED_TIME], gaze2[self.X_COORDINATE], gaze2[self.Y_COORDINATE])
 
-    def create_scatter_diagram(self, x, y, t):
-        figure = plt.figure()
-        axes = figure.add_subplot(111)
+    def set_diagram_design(self, axes):
         axes.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
         axes.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
         axes.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
+
+    def create_scatter_diagram(self, x, y, t):
+        figure = plt.figure(figsize=(11.4, 6.3))
+        axes = figure.add_subplot(111)
+        self.set_diagram_design(axes)
+
         if self.span == 'SHORT':
             line1, = axes.plot(x[0], y[0], c=config.get(self.user, 'Plot_color'), marker='.')
 
@@ -68,21 +74,20 @@ class Diagram():
                 line2.set_data(x[list_index], y[list_index])
 
             time = str(round(t[list_index]))
-            axes.set_title(config.get(self.user, 'Username') + config.get('FIGURE', 'Title') + '\nTime = ' + time + 'msec')
+            axes.texts.clear()
+            axes.text(x[list_index], y[list_index], add_movie_meaning.calculate_coordinate_information(x[list_index], y[list_index]), size=12)
+            axes.set_title(config.get(self.user, 'Username') + config.get('FIGURE', 'Title') + '\nTime = ' + time + 'msec', loc='center', size=15, weight=10)
 
         ani = animation.FuncAnimation(figure, update, interval = 30)
-        # ani.save('../assets/gif/plot.gif', writer='imagemagick', dpi=300)
 
         plt.show()
 
     def create_scatter_diagrams(self, x1, y1, t1, x2, y2, t2):
-        figure = plt.figure()
+        figure = plt.figure(figsize=(11.4, 6.3))
         figure.subplots_adjust(hspace=0.7)
 
         axes1 = figure.add_subplot(config.getint('BEREAVED FAMILY', 'Plot_number'))
-        axes1.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
-        axes1.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
-        axes1.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
+        self.set_diagram_design(axes1)
         line1, = axes1.plot(x1[0], y1[0], c=config.get('BEREAVED FAMILY', 'Plot_color'), marker='.')
 
         def update1(i):
@@ -94,37 +99,35 @@ class Diagram():
         ani1 = animation.FuncAnimation(figure, update1, interval = 30)
 
         axes2 = figure.add_subplot(config.getint('NURSE', 'Plot_number'))
-        axes2.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
-        axes2.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
-        axes2.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
+        self.set_diagram_design(axes2)
         line2, = axes2.plot(x2[0], y2[0], c=config.get('NURSE', 'Plot_color'), marker='.')
 
         def update2(i):
             # line2, = axes2.plot(x2[0], y2[0], c='blue', marker='.')
             line2.set_data(x2[i], y2[i])
-            time2 = str(round(t2[i]) - 858)
+            time2 = str(round(t2[i]) - 858) # This is time difference
             axes2.set_title(config.get('NURSE', 'Username') + config.get('FIGURE', 'Title') + '\nTime = ' + time2 + 'msec')
         ani2 = animation.FuncAnimation(figure, update2, interval = 30)
 
         plt.show()
 
-    def create_scatter_diagrams_together(self, x1, y1, x2, y2):
-        figure = plt.figure()
+    def create_scatter_diagrams_together(self, x1, y1, t1, x2, y2):
+        figure = plt.figure(figsize=(11.4, 6.3))
         axes = figure.add_subplot(111)
-        axes.set_title('All member\'s gaze')
-        axes.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
-        axes.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
-        axes.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
-        # line1, = axes.plot(x1[0], y1[0], c=config.get('BEREAVED FAMILY', 'Plot_color'), marker='.')
-        # line2, = axes.plot(x2[0], y2[0], c=config.get('NURSE', 'Plot_color'), marker='.')
+        self.set_diagram_design(axes)
+        line1, = axes.plot(x1[0], y1[0], c=config.get('BEREAVED FAMILY', 'Plot_color'), marker='.', label='BEREAVED FAMILY')
+        line2, = axes.plot(x2[0], y2[0], c=config.get('NURSE', 'Plot_color'), marker='.', label='NURSE')
+        axes.legend(loc="lower right")
 
-        def update1(i):
-            line1, = axes.plot(x1[0], y1[0], c='red', marker='.')
-            line1.set_data(x1[i], y1[i])
+        def update1(list_index):
+            # line1, = axes.plot(x1[0], y1[0], c='red', marker='.', label='BEREAVED FAMILY')
+            line1.set_data(x1[list_index], y1[list_index])
+            time = str(round(t1[list_index]))
+            axes.set_title('All participant\'s gaze information at the time of online Bereavement Care' + '\nTime = ' + time + 'msec')
 
-        def update2(i):
-            line2, = axes.plot(x2[0], y2[0], c='blue', marker='.')
-            line2.set_data(x2[i], y2[i])
+        def update2(list_index):
+            # line2, = axes.plot(x2[0], y2[0], c='blue', marker='.', label='NURSE')
+            line2.set_data(x2[list_index], y2[list_index])
 
         ani1 = animation.FuncAnimation(figure, update1, interval = 30)
         ani2 = animation.FuncAnimation(figure, update2, interval = 30)

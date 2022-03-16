@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 config = configparser.ConfigParser()
-config.read('config.ini', encoding='utf-8')
+config.read('../config.ini', encoding='utf-8')
 
 def plot(figure, user, x, y):
     axes = figure.add_subplot(config.getint(user, 'Plot_number'))
