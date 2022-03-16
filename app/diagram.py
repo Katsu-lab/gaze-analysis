@@ -6,12 +6,11 @@ import gaze
 
 config = configparser.ConfigParser()
 config.read('config.ini', encoding='utf-8')
-
 csv = gaze.CsvSetting()
 
 class Diagram():
 
-    def __init__(self, user, span, mode):
+    def __init__(self, user, span, mode, graph):
         if user == 'b':
             self.user = 'BEREAVED FAMILY'
         elif user == 'n':
@@ -26,18 +25,28 @@ class Diagram():
             self.mode = 'LINE'
         elif mode == 'p':
             self.mode = 'POINT'
+        if graph == 's':
+            self.graph = 'SEPARATE'
+        elif graph == 'o':
+            self.graph = 'OVERLAP'
         self.X_COORDINATE = 0
         self.Y_COORDINATE = 1
         self.ELAPSED_TIME = 2
 
+    def set_csv_data(self, user):
+        return csv.set_data(config.get(user, 'Gaze'))
+
     def display_scatter_diagram(self):
-        gaze = csv.set_data(config.get(self.user, 'Gaze'))
+        gaze = self.set_csv_data(self.user)
         self.create_scatter_diagram(gaze[self.X_COORDINATE], gaze[self.Y_COORDINATE], gaze[self.ELAPSED_TIME])
 
     def display_scatter_diagrams(self):
-        gaze1 = csv.set_data(config.get('BEREAVED FAMILY', 'Gaze'))
-        gaze2 = csv.set_data(config.get('NURSE', 'Gaze'))
-        self.create_scatter_diagrams(gaze1[self.X_COORDINATE], gaze1[self.Y_COORDINATE], gaze1[self.ELAPSED_TIME], gaze2[self.X_COORDINATE], gaze2[self.Y_COORDINATE], gaze2[self.ELAPSED_TIME])
+        gaze1 = self.set_csv_data('BEREAVED FAMILY')
+        gaze2 = self.set_csv_data('NURSE')
+        if self.graph == 'SEPARATE':
+            self.create_scatter_diagrams(gaze1[self.X_COORDINATE], gaze1[self.Y_COORDINATE], gaze1[self.ELAPSED_TIME], gaze2[self.X_COORDINATE], gaze2[self.Y_COORDINATE], gaze2[self.ELAPSED_TIME])
+        elif self.graph == 'OVERLAP':
+            self.create_scatter_diagrams_together(gaze1[self.X_COORDINATE], gaze1[self.Y_COORDINATE], gaze2[self.X_COORDINATE], gaze2[self.Y_COORDINATE])
 
     def create_scatter_diagram(self, x, y, t):
         figure = plt.figure()
@@ -95,6 +104,29 @@ class Diagram():
             line2.set_data(x2[i], y2[i])
             time2 = str(round(t2[i]) - 858)
             axes2.set_title(config.get('NURSE', 'Username') + config.get('FIGURE', 'Title') + '\nTime = ' + time2 + 'msec')
+        ani2 = animation.FuncAnimation(figure, update2, interval = 30)
+
+        plt.show()
+
+    def create_scatter_diagrams_together(self, x1, y1, x2, y2):
+        figure = plt.figure()
+        axes = figure.add_subplot(111)
+        axes.set_title('All member\'s gaze')
+        axes.patch.set_facecolor('#' + config.get('FIGURE', 'Background_color'))
+        axes.set_xlim([0, config.getint('FIGURE', 'Pc_width')])
+        axes.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
+        # line1, = axes.plot(x1[0], y1[0], c=config.get('BEREAVED FAMILY', 'Plot_color'), marker='.')
+        # line2, = axes.plot(x2[0], y2[0], c=config.get('NURSE', 'Plot_color'), marker='.')
+
+        def update1(i):
+            line1, = axes.plot(x1[0], y1[0], c='red', marker='.')
+            line1.set_data(x1[i], y1[i])
+
+        def update2(i):
+            line2, = axes.plot(x2[0], y2[0], c='blue', marker='.')
+            line2.set_data(x2[i], y2[i])
+
+        ani1 = animation.FuncAnimation(figure, update1, interval = 30)
         ani2 = animation.FuncAnimation(figure, update2, interval = 30)
 
         plt.show()

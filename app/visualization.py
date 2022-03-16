@@ -14,21 +14,28 @@ if span == 'l':
 else :
     mode = 'p'
 
-diagram = diagram.Diagram(user, span, mode)
+if user == 'a':
+    print("\nWhose gaze information do you want 'SEPALATE' or 'OVERLAP' ?")
+    graph = input("Please enter s/o : ")
+else :
+    graph = 's'
+
+diagram = diagram.Diagram(user, span, mode, graph)
 print('User: ' + diagram.user)
 print('Span: ' + diagram.span)
 print('Mode: ' + diagram.mode)
+print('Graph: ' + diagram.graph)
 
 if user == 'a':
     diagram.display_scatter_diagrams()
 else :
     diagram.display_scatter_diagram()
 
-
+# Let's refactor and add Function annotation
 
 ####### FOR TEST #######
 
-# diagram = diagram.Diagram('b', 's', 'p')
+# diagram = diagram.Diagram('b', 'l', 'p')
 
 # print('User: ' + diagram.user)
 # print('Span: ' + diagram.span)

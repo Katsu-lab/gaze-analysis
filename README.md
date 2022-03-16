@@ -27,7 +27,7 @@ Bereavement Care実施時の視線情報を可視化するシステム<br>
 
 # Usage
 
-appフォルダにて以下のコマンドを実行
+<span style="color: orange;">appフォルダにて以下のコマンドを実行すれば起動</span>
 
 ```bash
 python visualization.py
@@ -35,17 +35,18 @@ python visualization.py
 
 CLIで表示された質問に答えることで視線情報をプロット
 
-データの処理の流れ
-1. visualization
-2. diagram
-3. gaze
+指定すべき項目は以下
+1. User: 看護師か遺族のどちらの視線か
+2. Span: 視線の場所を表すポインタは毎時か累積か
+3. Mode: 視線座標から視線座標の間を線で補うか
 
 **各ファイルの内容**
 - app
-    - visualization: 本ファイルを実行することでプログラムが開始するスクリプトを記述
-    - diagram: 図のクラスとそのメソッド（図作成・図表示）を記述
-    - gaze: CSVファイルから各カラムのデータ取り込み・加工に関するクラスを記述
-    - config: 各種設定するための記述 著者以外が編集すべきはこのファイル
+    - visualization: 本ファイルを実行することでプログラムが開始するスクリプト
+    - diagram: 図作成や図表示方法
+    - axis: 図やプロットのデザイン
+    - gaze: CSVファイルから各カラムのデータ取り込み・加工
+    - config: 各種設定 <span style="color: orange;">（著者以外が編集すべきはこのファイル）</span>
 - data
     - gaze_b: 遺族の視線情報のCSVファイル
     - gaze_n: 看護師の視線情報のCSVファイル
