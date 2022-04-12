@@ -1,5 +1,5 @@
 import configparser
-from venv import create
+from PIL import Image
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
@@ -56,7 +56,7 @@ class Diagram():
         axes.set_ylim([0, config.getint('FIGURE', 'Pc_height')])
 
     def create_scatter_diagram(self, x, y, t):
-        figure = plt.figure(figsize=(11.4, 6.3))
+        figure = plt.figure(config.get(self.user, 'Username') + config.get('FIGURE', 'Title'), figsize=(11.4, 6.3))
         axes = figure.add_subplot(111)
         self.set_diagram_design(axes)
 
@@ -74,12 +74,16 @@ class Diagram():
                 line2.set_data(x[list_index], y[list_index])
 
             time = str(round(t[list_index]))
-            axes.texts.clear()
-            axes.text(x[list_index], y[list_index], add_movie_meaning.calculate_coordinate_information(x[list_index], y[list_index]), size=12)
-            axes.set_title(config.get(self.user, 'Username') + config.get('FIGURE', 'Title') + '\nTime = ' + time + 'msec', loc='center', size=15, weight=10)
+            # axes.texts.clear()
+            # axes.text(x[list_index], y[list_index], add_movie_meaning.calculate_bereavement_coordinate_information(x[list_index], y[list_index]), size=12)
+            variable = '\nTime: ' + time + 'msec' + '\nGaze: ' + add_movie_meaning.calculate_bereavement_coordinate_information(x[list_index], y[list_index]) + '\nFacial Impression: ' + 'Happy' + '\nVoice: ' + 'Non-stress'
+            axes.set_title(variable, loc='left', size=10, weight=10)
 
         ani = animation.FuncAnimation(figure, update, interval = 30)
-
+        image = Image.open("../assets/img/nurse.png")
+        xlim = axes.get_xlim()
+        ylim = axes.get_ylim()
+        axes.imshow(image, extent=[*xlim, *ylim], aspect='auto', alpha=0.6)
         plt.show()
 
     def create_scatter_diagrams(self, x1, y1, t1, x2, y2, t2):
@@ -117,7 +121,7 @@ class Diagram():
         self.set_diagram_design(axes)
         line1, = axes.plot(x1[0], y1[0], c=config.get('BEREAVED FAMILY', 'Plot_color'), marker='.', label='BEREAVED FAMILY')
         line2, = axes.plot(x2[0], y2[0], c=config.get('NURSE', 'Plot_color'), marker='.', label='NURSE')
-        axes.legend(loc="lower right")
+        axes.legend(loc='lower right')
 
         def update1(list_index):
             # line1, = axes.plot(x1[0], y1[0], c='red', marker='.', label='BEREAVED FAMILY')
