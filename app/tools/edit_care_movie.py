@@ -1,6 +1,6 @@
 import cv2
 
-care_movie = cv2.VideoCapture('../data/screen_n.mp4')
+care_movie = cv2.VideoCapture('../../data/screen_n.mp4')
 print(type(care_movie))
 print(care_movie.isOpened())
 

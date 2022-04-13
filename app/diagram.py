@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 import gaze_csv_setting
-import add_movie_meaning
+from orality import return_gaze_object, return_facial_expression, return_paralanguage
+from tools import print_result_to_csv
 
 config = configparser.ConfigParser()
 config.read('../config.ini', encoding='utf-8')
@@ -74,16 +75,21 @@ class Diagram():
                 line2.set_data(x[list_index], y[list_index])
 
             time = str(round(t[list_index]))
+            gaze = return_gaze_object.calculate_bereavement_coordinate_information(x[list_index], y[list_index])
+            face = return_facial_expression.example()
+            voice = return_paralanguage.example()
+            print_result_to_csv.output_data(time, gaze, face, voice)
+
             # axes.texts.clear()
-            # axes.text(x[list_index], y[list_index], add_movie_meaning.calculate_bereavement_coordinate_information(x[list_index], y[list_index]), size=12)
-            variable = '\nTime: ' + time + 'msec' + '\nGaze: ' + add_movie_meaning.calculate_bereavement_coordinate_information(x[list_index], y[list_index]) + '\nFacial Impression: ' + 'Happy' + '\nVoice: ' + 'Non-stress'
+            # axes.text(x[list_index], y[list_index], return_gaze_object.calculate_bereavement_coordinate_information(x[list_index], y[list_index]), size=12)
+            variable = '\nTime: ' + time + 'msec' + '\nGaze: ' + gaze + '\nFacial Impression: ' + face + '\nParalanguage: ' + voice
             axes.set_title(variable, loc='left', size=10, weight=10)
 
-        ani = animation.FuncAnimation(figure, update, interval = 30)
-        image = Image.open("../assets/img/nurse.png")
+        ani = animation.FuncAnimation(figure, update, interval = 10)
+        image = Image.open('../assets/img/' + config.get(self.user, 'Username') + '.png')
         xlim = axes.get_xlim()
         ylim = axes.get_ylim()
-        axes.imshow(image, extent=[*xlim, *ylim], aspect='auto', alpha=0.6)
+        axes.imshow(image, extent=[*xlim, *ylim], aspect='auto', alpha=0.7)
         plt.show()
 
     def create_scatter_diagrams(self, x1, y1, t1, x2, y2, t2):

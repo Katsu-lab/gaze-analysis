@@ -33,9 +33,9 @@ import diagram
 
 
 
-####### FOR TEST #######
+####### TEST CODE #######
 
-diagram = diagram.Diagram('b', 's', 'p', 's')
+diagram = diagram.Diagram('b', 's', 'p', 'o')
 
 print('User: ' + diagram.user)
 print('Span: ' + diagram.span)
