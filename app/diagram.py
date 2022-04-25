@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 import gaze_csv_setting
-from orality import return_gaze_object, return_facial_expression, return_paralanguage
+from orality_calculation import return_gaze_object, return_facial_expression, return_paralanguage
 from tools import print_result_to_csv
 
 config = configparser.ConfigParser()
@@ -80,16 +80,10 @@ class Diagram():
             voice = return_paralanguage.example()
             print_result_to_csv.output_data(time, gaze, face, voice)
 
-            # axes.texts.clear()
-            # axes.text(x[list_index], y[list_index], return_gaze_object.calculate_bereavement_coordinate_information(x[list_index], y[list_index]), size=12)
             variable = '\nTime: ' + time + 'msec' + '\nGaze: ' + gaze + '\nFacial Impression: ' + face + '\nParalanguage: ' + voice
             axes.set_title(variable, loc='left', size=10, weight=10)
 
         ani = animation.FuncAnimation(figure, update, interval = 10)
-        image = Image.open('../assets/img/' + config.get(self.user, 'Username') + '.png')
-        xlim = axes.get_xlim()
-        ylim = axes.get_ylim()
-        axes.imshow(image, extent=[*xlim, *ylim], aspect='auto', alpha=0.7)
         plt.show()
 
     def create_scatter_diagrams(self, x1, y1, t1, x2, y2, t2):
