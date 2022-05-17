@@ -1,11 +1,11 @@
-def calculate_bereavement_coordinate_information(x,y):
-    if (1250 <= x and x < 2600) and (0 <= y and y < 600):
+def calculate_bereavement_coordinate_information(x,y,resize):
+    if ((1250 / resize) <= x and x < (2600 / resize)) and (0 <= y and y <( 600 / resize)):
         return 'Body'
-    elif (1400 <= x and x < 2300) and (600 <= y and y < 1500):
+    elif ((1400 / resize) <= x and x < (2300 / resize)) and ((600 / resize) <= y and y < (1500 / resize)):
         return 'Face'
-    elif (2000 <= x and x < 2270) and (800 <= y and y < 1600):
+    elif ((2000 / resize) <= x and x < (2270 / resize)) and ((800 / resize) <= y and y < (1600 / resize)):
         return 'Poster'
-    elif (2900 <= x and x < 3840) and (0 <= y and y < 2000):
+    elif ((2900 / resize) <= x and x < (3840 / resize)) and (0 <= y and y < (2000 / resize)):
         return 'Closet'
     else :
         return 'Background'
