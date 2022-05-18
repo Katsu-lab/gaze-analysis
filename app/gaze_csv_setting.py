@@ -21,11 +21,11 @@ class CsvSetting():
         return new_elapsed_time_list
 
     def set_data(self, fileName):
-        data = pd.read_csv(self.file_path + fileName).values.tolist()
+        dataSet = pd.read_csv(self.file_path + fileName).values.tolist()
 
-        x = [ column[self.x_coodinate] for column in data ]
-        y = [ column[self.y_coodinate] for column in data ]
-        t = [ column[self.time_coodinate] for column in data ]
+        x = [ data[self.x_coodinate] for data in dataSet ]
+        y = [ data[self.y_coodinate] for data in dataSet ]
+        t = [ data[self.time_coodinate] for data in dataSet ]
 
         n_t = self.make_elapsed_time_since_last(t)
 

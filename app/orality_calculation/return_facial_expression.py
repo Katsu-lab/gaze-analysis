@@ -1,6 +1,3 @@
-import random
+def calculate_facial_expression_information(action_unit_list):
 
-types = ['Anger', 'Disgust', 'Fear', 'Happiness', 'Sadness', 'Surprise', 'Neutral']
-
-def example():
-    return random.choice(types)
+    return facial_types[0]
