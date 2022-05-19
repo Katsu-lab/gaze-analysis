@@ -11,20 +11,6 @@ def calculate_bereavement_coordinate_information(x,y,resize):
         return 'Background'
 
 def calculate_nurse_coordinate_information(x,y,resize):
-    if (0 <= x and x < 600) and (0 <= y and y < 900):
-        return 'Desk'
-    elif (100 <= x and x < 300) and (1000 <= y and y < 1500):
-        return 'Flower'
-    elif (340 <= x and x < 640) and (1000 <= y and y < 1470):
-        return 'Portrait'
-    elif (1500 <= x and x < 2700) and (0 <= y and y < 420):
-        return 'Body'
-    elif (1700 <= x and x < 2350) and (400 <= y and y < 1300):
-        return 'Face'
-    else :
-        return 'Background'
-
-def calculate_anyone_coordinate_information(x,y,resize):
     if (0 <= x and x < (600 / resize)) and (0 <= y and y < (900 / resize)):
         return 'Desk'
     elif ((100 / resize) <= x and x < (300 / resize)) and ((1000 / resize) <= y and y < (1500 / resize)):
