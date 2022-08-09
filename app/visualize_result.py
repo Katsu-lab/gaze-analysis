@@ -35,12 +35,12 @@ import diagram
 
 ####### TEST CODE #######
 
-diagram = diagram.Diagram('b', 's', 'p', 'o')
+diagram = diagram.Diagram('a', 'l', 'l', 'o')
 
 print('User: ' + diagram.user)
 print('Span: ' + diagram.span)
 print('Mode: ' + diagram.mode)
 print('Graph: ' + diagram.graph)
 
-diagram.display_scatter_diagram()
-# diagram.display_scatter_diagrams()
+# diagram.display_scatter_diagram()
+diagram.display_scatter_diagrams()

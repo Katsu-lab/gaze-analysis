@@ -75,7 +75,7 @@ class Diagram():
                 line2.set_data(x[list_index], y[list_index])
 
             time = str(round(t[list_index]))
-            gaze = return_gaze_object.calculate_bereavement_coordinate_information(x[list_index], y[list_index])
+            gaze = return_gaze_object.calculate_bereavement_coordinate_information(x[list_index], y[list_index],1)
             face = return_facial_expression.example()
             voice = return_paralanguage.example()
             print_result_to_csv.output_data(time, gaze, face, voice)
@@ -119,21 +119,21 @@ class Diagram():
         figure = plt.figure(figsize=(11.4, 6.3))
         axes = figure.add_subplot(111)
         self.set_diagram_design(axes)
-        line1, = axes.plot(x1[0], y1[0], c=config.get('BEREAVED FAMILY', 'Plot_color'), marker='.', label='BEREAVED FAMILY')
-        line2, = axes.plot(x2[0], y2[0], c=config.get('NURSE', 'Plot_color'), marker='.', label='NURSE')
+        # line1, = axes.plot(x1[0], y1[0], c=config.get('BEREAVED FAMILY', 'Plot_color'), marker='.', label='BEREAVED FAMILY')
+        # line2, = axes.plot(x2[0], y2[0], c=config.get('NURSE', 'Plot_color'), marker='.', label='NURSE')
         axes.legend(loc='lower right')
 
         def update1(list_index):
-            # line1, = axes.plot(x1[0], y1[0], c='red', marker='.', label='BEREAVED FAMILY')
-            line1.set_data(x1[list_index], y1[list_index])
+            line1, = axes.plot(x1[0], y1[0], c='red', marker='.', label='BEREAVED FAMILY')
+            line1.set_data(x1[:list_index], y1[:list_index])
             time = str(round(t1[list_index]))
             axes.set_title('All participant\'s gaze information at the time of online Bereavement Care' + '\nTime = ' + time + 'msec')
 
         def update2(list_index):
-            # line2, = axes.plot(x2[0], y2[0], c='blue', marker='.', label='NURSE')
-            line2.set_data(x2[list_index], y2[list_index])
+            line2, = axes.plot(x2[0], y2[0], c='blue', marker='.', label='NURSE')
+            line2.set_data(x2[:list_index], y2[:list_index])
 
         ani1 = animation.FuncAnimation(figure, update1, interval = 30)
         ani2 = animation.FuncAnimation(figure, update2, interval = 30)
-
+        plt.grid()
         plt.show()
